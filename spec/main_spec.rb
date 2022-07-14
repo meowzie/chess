@@ -3,7 +3,7 @@
 require '../lib/main.rb'
 
 describe Position do
-  subject(:square) { described_class.new }
+  subject(:square) { described_class.new(true) }
 
   describe '#intialize' do
     # requires no testing
@@ -29,23 +29,23 @@ describe Position do
   end
 
   describe '#desert' do
-    subject(:occupied) { described_class.new }
+    subject(:occupied) { described_class.new(false) }
     let(:knight) { double(Knight, symbol: '♘', black: false) }
     before { occupied.occupy(knight) }
 
     it 'reverts the occupied attribute to an unoccupied state' do
-      square.desert
-      expect(square.instance_variable_get(:@occupied)).to be(false)
+      occupied.desert
+      expect(occupied.instance_variable_get(:@occupied)).to be(false)
     end
 
     it 'removes the occupier' do
-      square.desert
-      expect(square.instance_variable_get(:@occupier)).to eq(nil)
+      occupied.desert
+      expect(occupied.instance_variable_get(:@occupier)).to eq(nil)
     end
 
     it 'displays no symbol' do
-      square.desert
-      expect(square.instance_variable_get(:@symbol)).to eq(nil)
+      occupied.desert
+      expect(occupied.instance_variable_get(:@symbol)).to eq(nil)
     end
   end
 end

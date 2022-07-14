@@ -2,12 +2,12 @@
 
 # the squares that hold the pieces
 class Position
-  def initialize
+  def initialize(black)
     @id = nil
     @occupied = false
     @occupier = nil
     @symbol = nil
-    @black = true
+    @black = black
   end
 
   def occupy(piece)
