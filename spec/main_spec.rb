@@ -6,25 +6,46 @@ describe Position do
   subject(:square) { described_class.new }
 
   describe '#intialize' do
-    # requires no testing 
+    # requires no testing
   end
 
-  describe '#update' do
+  describe '#occupy' do
     let(:knight) { double(Knight, symbol: '♘', black: false) }
 
     it 'updates the occupied boolean' do
-      square.update(knight)
+      square.occupy(knight)
       expect(square.instance_variable_get(:@occupied)).to be(true)
     end
 
     it 'updates the occupier to the knight' do
-      square.update(knight)
-      expect(square.instance_variable_get(:@occupier)).to eql(knight)
+      square.occupy(knight)
+      expect(square.instance_variable_get(:@occupier)).to eq(knight)
     end
 
     it 'updates the symobl to knight.symbol' do
-      square.update(knight)
-      expect(square.instance_variable_get(:@symbol)).to eql(knight.symbol)
+      square.occupy(knight)
+      expect(square.instance_variable_get(:@symbol)).to eq(knight.symbol)
+    end
+  end
+
+  describe '#desert' do
+    subject(:occupied) { described_class.new }
+    let(:knight) { double(Knight, symbol: '♘', black: false) }
+    before { occupied.occupy(knight) }
+
+    it 'reverts the occupied attribute to an unoccupied state' do
+      square.desert
+      expect(square.instance_variable_get(:@occupied)).to be(false)
+    end
+
+    it 'removes the occupier' do
+      square.desert
+      expect(square.instance_variable_get(:@occupier)).to eq(nil)
+    end
+
+    it 'displays no symbol' do
+      square.desert
+      expect(square.instance_variable_get(:@symbol)).to eq(nil)
     end
   end
 end

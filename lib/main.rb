@@ -10,10 +10,16 @@ class Position
     @black = true
   end
 
-  def update(piece)
+  def occupy(piece)
     @occupied = true
     @occupier = piece
     @symbol = piece.symbol
+  end
+
+  def desert
+    @occupied = false
+    @occupier = nil
+    @symbol = nil
   end
 end
 
